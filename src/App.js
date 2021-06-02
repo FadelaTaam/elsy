@@ -11,6 +11,15 @@ const stepsMin = 0
 const stepsMax = 50000
 
 export default class App extends React.Component {
+  constructor () {
+    super();
+    this.state = {
+      water : 0,
+      heart : 120,
+      temperature : -10,
+      steps  : 3000
+    };
+  }
 
   render() {
     return (
@@ -20,7 +29,7 @@ export default class App extends React.Component {
           <Box
             //boîte Water//
             const icon="local_drink"
-            const color="#3A85FF"
+            const color= "#3A85FF"
             const value={1.5}
             const unit="L" />
           <Box
@@ -41,12 +50,6 @@ export default class App extends React.Component {
             color="yellow"
             value={-10}
             unit="°C" />
-
-
-          <p> Heart :{heartMin}</p>
-          <p> Temperature :{tempMin}</p>
-          <p> Steps :{stepsMin}</p>
-
         </div>
 
       </div>
