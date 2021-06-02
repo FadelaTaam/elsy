@@ -40,8 +40,8 @@ export default class App extends React.Component {
             unit="steps" />
           <Box
             //boîte Heart//
-            icon="favorite"
-            color="red"
+            const icon="favorite"
+            const color="red"
             value={120}
             unit="bpm" />
           <Box
