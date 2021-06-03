@@ -21,16 +21,16 @@ class App extends React.Component {
     };
   }
   onStepsChange = (e) => {
-    this.setState({ steps: e.target.value }, this.waterCalculater);
+    this.setState({ steps: e.target.value }, this.calculateWater);
   };
   onHeartChange = (e) => {
-    this.setState({ heart: e.target.value }, this.waterCalculater);
+    this.setState({ heart: e.target.value }, this.calculateWater);
   };
   onTempChange = (e) => {
-    this.setState({ temp: e.target.value }, this.waterCalculater);
+    this.setState({ temp: e.target.value }, this.calculateWater);
   };
 
-  waterCalculater = () => {
+  calculateWater = () => {
     let waterLevel = 1.5;
     if (this.state.temp > 20) {
       waterLevel = waterLevel + (this.state.temp - 20) * 0.02;
