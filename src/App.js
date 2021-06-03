@@ -14,31 +14,44 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      water:1.5, 
-      heart: 120, 
-      temperature: -10, 
-      steps:3000
+      water: 1.5,
+      heart: 120,
+      temperature: -10,
+      steps: 3000
     };
   }
-  onTempChange = (e) => {
-    this.setState({ temperature: e.target.value });
-  }; 
-  onHeartChange = (e) => {
-  this.setState({ heart: e.target.value });
-};
   onStepsChange = (e) => {
-    this.setState({ steps: e.target.value });
+    this.setState({ steps: e.target.value }, this.waterCalculater);
   };
-  
+  onHeartChange = (e) => {
+    this.setState({ heart: e.target.value }, this.waterCalculater);
+  };
+  onTempChange = (e) => {
+    this.setState({ temp: e.target.value }, this.waterCalculater);
+  };
+
+  waterCalculater = () => {
+    let waterLevel = 1.5;
+    if (this.state.temp > 20) {
+      waterLevel = waterLevel + (this.state.temp - 20) * 0.02;
+    }
+    if (this.state.heart > 120) {
+      waterLevel = waterLevel + (this.state.heart - 120) * 0.0008;
+    }
+    if (this.state.steps > 10000) {
+      waterLevel = waterLevel + (this.state.steps - 10000) * 0.00002;
+    }
+    this.setState({ water: waterLevel });
+  }
 
   render() {
     return (
       <div className="container-fluid">
         <div className="row">
-          <Box icon="local_drink" 
-          color="#3A85FF" 
-          value={1.5} 
-          unit="L" 
+          <Box icon="local_drink"
+            color="#3A85FF"
+            value={this.state.water}
+            unit="L"
           />
           <Box
             icon="directions_walk"
@@ -49,33 +62,24 @@ class App extends React.Component {
             max={stepsMax}
             onChange={this.onStepsChange}
           />
-          <Box icon="favorite" 
-          color="red" 
-          value={this.state.heart} 
-          unit="bpm"
-          min={heartMin}
-          max={heartMax}
-          onChange={this.onHeartChange}
+          <Box icon="favorite"
+            color="red"
+            value={this.state.heart}
+            unit="bpm"
+            min={heartMin}
+            max={heartMax}
+            onChange={this.onHeartChange}
           />
-          <Box icon="wb_sunny" 
-          color="yellow" 
-          value={this.state.temperature} 
-          unit="°C" 
-          min={tempMin}
-          max={tempMax}
-          onChange={this.onTempChange}
-          />
+          <Box icon="wb_sunny"
+            color="yellow"
+            value={this.state.temp}
+            unit="°C"
+            min={tempMin}
+            max={tempMax}
+            onChange={this.onTempChange} />
         </div>
       </div>
     );
   }
 }
 export default App;
-
-/*
-Quelque soit les éléments externes, vous devez boire au minimum 1,5 litre d’eau par jour
-Si la température est supérieure à 20 degrés Celsius, chaque degré au dessus aura un facteur de 0,02 litres en plus
-Si les battements de coeurs sont au dessus de 120, chaque battement au dessus aura un facteur de 0,0008 litres en plus
-Si le nombre de pas est supérieur à 10 000, chaque pas au dessus aura un facteur de 0,00002 litres en plus
-*/
- 
